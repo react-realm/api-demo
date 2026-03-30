@@ -1,0 +1,104 @@
+<div class="rr-course-demo" data-course-id="2">
+  <div class="rr-card">
+    <button type="button" class="rr-toggle-btn">
+      Retrieve Course Data
+    </button>
+
+    <p class="rr-helper">
+      This request uses a known course index and retrieves all displayed content from the live API.
+    </p>
+
+    <div class="rr-result" style="display:none;"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.currentScript.previousElementSibling;
+  const courseId = Number(root.dataset.courseId);
+
+  const button = root.querySelector('.rr-toggle-btn');
+  const helper = root.querySelector('.rr-helper');
+  const result = root.querySelector('.rr-result');
+
+  let loaded = false;
+  let visible = false;
+  let cachedHtml = '';
+
+  function updateButtonText() {
+    button.textContent = visible
+      ? `Hide Course ${courseId} Data`
+      : `Retrieve Course ${courseId} Data`;
+  }
+
+  updateButtonText();
+
+  button.addEventListener('click', async function () {
+    if (visible) {
+      result.style.display = 'none';
+      helper.style.display = 'block';
+      visible = false;
+      updateButtonText();
+      return;
+    }
+
+    helper.style.display = 'none';
+    result.style.display = 'block';
+
+    if (!loaded) {
+      result.innerHTML = '<p>Loading course data...</p>';
+
+      try {
+        const [courseRes, lessonsRes] = await Promise.all([
+          fetch(`https://api.reactrealm.org/api/v1/courses/${courseId}`),
+          fetch(`https://api.reactrealm.org/api/v1/courses/${courseId}/lessons`)
+        ]);
+
+        if (!courseRes.ok || !lessonsRes.ok) {
+          throw new Error('API request failed');
+        }
+
+        const courseData = await courseRes.json();
+        const lessonsData = await lessonsRes.json();
+
+        const course = courseData.data;
+        const lessons = lessonsData.data || [];
+
+        cachedHtml = `
+          <h3>${course.title}</h3>
+          <p><strong>Level:</strong> ${course.level}</p>
+          <p>${course.summary || ''}</p>
+
+          <h4>Lessons</h4>
+          <ul>
+            ${lessons.map(l => `
+              <li>${l.lesson_order}. ${l.title} (${l.duration_minutes} min)</li>
+            `).join('')}
+          </ul>
+
+          <p class="rr-endpoint-note">
+            API endpoints invoked:<br>
+            <code>/api/v1/courses/${courseId}</code><br>
+            <code>/api/v1/courses/${courseId}/lessons</code>
+          </p>
+        `;
+
+        result.innerHTML = cachedHtml;
+        loaded = true;
+      } catch (err) {
+        console.error(err);
+        result.innerHTML = '<p>Unable to load course data.</p>';
+        helper.style.display = 'block';
+        visible = false;
+        updateButtonText();
+        return;
+      }
+    } else {
+      result.innerHTML = cachedHtml;
+    }
+
+    visible = true;
+    updateButtonText();
+  });
+})();
+</script>
