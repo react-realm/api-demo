@@ -1,0 +1,53 @@
+<!--
+##############################################
+# Designing Restful APIs for Relational Data #
+##############################################
+-->
+<h3>Designing RESTful APIs for Relational Data</h3>
+This demonstration uses a <strong>RESTful API layer to expose structured data from a relational database (PostgreSQL)</strong>. Each endpoint represents a resource and follows predictable, versioned patterns that support scalable application design. The API separates concerns by handling data access, transformation, and response formatting independently of the frontend.
+
+<strong>Key elements demonstrated:</strong>
+<ul>
+   <li>Resource-based endpoints (<strong>/api/v1/courses</strong>, <strong>/api/v1/courses/:id/lessons</strong>)</li>
+   <li>Versioned API structure for maintainability and evolution</li>
+   <li>Clear mapping between relational models and API responses</li>
+   <li>Consistent JSON response format for frontend consumption</li>
+</ul>
+
+
+<!--
+######################################################
+# Interacting with Relational Databases (PostgreSQL) #
+######################################################
+-->
+<h3><strong>Interacting with Relational Databases (PostgreSQL)</strong></h3>
+The backend service interacts with a <strong>normalized relational schema</strong>, where courses and lessons are linked through foreign key relationships. The API retrieves and composes this data into structured responses without exposing underlying database complexity.
+
+This demonstrates how relational integrity and query design support clean API behavior.
+
+<strong>Key elements demonstrated:</strong>
+<ul>
+   <li>One-to-many relationships (<strong>courses → lessons</strong>)</li>
+   <li>Use of foreign keys to maintain data integrity</li>
+   <li>Querying relational data and shaping it for API responses</li>
+   <li>Separation between database schema and external API contract</li>
+</ul>
+
+
+<!--
+########################################
+# End-to-End Data Flow: API to Browser #
+########################################
+-->
+<h3>End-to-End Data Flow: API to Browser</h3>
+This page demonstrates a <strong>full-stack interaction model</strong>, where the frontend dynamically retrieves data from a backend API and renders it in real time without page reloads.
+
+The system architecture separates presentation, API logic, and data storage into distinct layers, allowing each to evolve independently.
+
+<strong>Key elements demonstrated:</strong>
+<ul>
+   <li>Asynchronous data retrieval using JavaScript (fetch API)</li>
+   <li>On-demand loading of related resources</li>
+   <li>Reverse proxy routing from Apache to Node.js backend</li>
+   <li>Clear separation between frontend, API, and database layers</li>
+</ul>

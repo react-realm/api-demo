@@ -1,0 +1,60 @@
+selector .rr-card {
+  padding: 16px 18px;
+  border: 1px solid #d9e3ea;
+  background: #f9fcfe;
+  border-radius: 6px;
+}
+
+selector .rr-toggle-btn {
+  padding: 8px 14px;
+  border: 1px solid #222;
+  background: #fff;
+  color: #222;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+selector .rr-toggle-btn:hover {
+  background: #222;
+  color: #fff;
+}
+
+selector .rr-helper {
+  margin-top: 10px;
+  margin-bottom: 0;
+  color: #555;
+}
+
+selector .rr-result {
+  margin-top: 14px;
+}
+
+selector .rr-result h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+selector .rr-result h4 {
+  margin-bottom: 8px;
+}
+
+selector .rr-result ul {
+  margin-top: 0;
+  margin-bottom: 12px;
+  padding-left: 20px;
+}
+
+selector .rr-endpoint-note {
+  color: #666;
+  font-size: 0.92em;
+  line-height: 1.5;
+}
+
+selector .rr-course-demo .rr-card .rr-result .rr-endpoint-note code {
+  font-weight: 700 !important;
+  color: #1a3a5f;
+  background: #eef3f7;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
