@@ -1,11 +1,11 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  host: '127.0.0.1',
-  port: 5432,
-  database: 'reactrealm',
-  user: 'reactrealm_user',
-  password: 'React+Realm=4Good',
+  host: process.env.PGHOST || '127.0.0.1',
+  port: Number(process.env.PGPORT || 5432),
+  database: process.env.PGDATABASE || 'reactrealm',
+  user: process.env.PGUSER || 'reactrealm_user',
+  password: process.env.PGPASSWORD,
 });
 
 module.exports = pool;
